@@ -10211,7 +10211,7 @@ x_shuxue = sorted(x, key = itemgetter("数学"))
 ]"""
 ```
 
-#### 3. `function.partial`
+#### 3. `function.partial`相加函数
 
 `function.partial`： 返回的是一个可调用的partial对象，使用方法是`partial(func,*args,**kw), func`是必须要传入的，而且至少需要一个args或是kw参数。
 
@@ -10230,9 +10230,15 @@ p(1,2) # 15
 
 
 
+## 第六章 
 
+git add file.txt file2.txt... # 加载到缓存区
 
+git status # 查看缓存区状态
 
+git commit -m "first commit" # 添加到本地主仓库内
+
+git push -u origin master
 
 
 
