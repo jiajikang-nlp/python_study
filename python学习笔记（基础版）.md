@@ -5297,13 +5297,9 @@ del haier1 #
 
 ### 24.6.1.5 `__lt__`
 
+### 24.6.1.6 `__doc__`
 
-
-
-
-
-
-
+具体查看第五章第一节
 
 ## 23.7 综合应用
 
@@ -8433,6 +8429,59 @@ Linux：source activate tensorflow，退出：source deactivate/conda deactivate
 conda env list
 ```
 
+## 32 raise自定义抛出异常
+
+Python的一些常见內建异常如下所示，这些都是你必须熟知和掌握的。
+
+```python
+Exception       常规错误的基类
+AttributeError  对象没有这个属性
+IOError         输入/输出操作失败
+IndexError      序列中没有此索引(index)
+KeyError        映射中没有这个键
+NameError       未声明/初始化对象 (没有属性)
+SyntaxError     Python 语法错误
+TypeError       对类型无效的操作
+ValueError      传入无效的参数
+ZeroDivisionError   除(或取模)零 (所有数据类型)
+```
+
+```python
+try:
+    s = None
+    if s is None:
+        print("s shi kong de ")
+        raise NameError  # 告诉系统受到异常信号 相当于认为制造了一个异常
+    print(3333333333)  # 在raise后面的语句不再执行。
+except Exception:
+    print("yes")
+```
+
+## 33 itertuples对DataFrame进行遍历(二维变一维)
+
+```python
+data_list = list(df.itertuples(index=False, name=None))
+```
+
+```python
+iterrows() : 将DataFrame迭代成（index ,series）
+iteritems()： 将DataFrame迭代成（列名，series）
+itertuples()： 将DataFrame迭代成元组 
+```
+
+```python
+for i in population.itertuples():
+    print(i)
+    print("city is:", getattr(i, 'city')) # 通过getattr()函数可以直接获取元组内指定的值 
+```
+
+```python
+for i, row in population.iterrows():
+    print(i,"city is:",row["city"])
+```
+
+
+
 # 30、闭包
 
 在 Python 中允许在一个方法中嵌套另一个方法，这种特殊的机制就叫做**「闭包」**，这个内部方法可以保留外部方法的作用域，尽管外部方法不是全局的，内部方法也可以访问到外部方法的参数和变量。
@@ -8748,6 +8797,15 @@ def wrapper(*args,**kwargs):
     pass
 ```
 
+## 32 github上传
+
+```pascal
+git add file.txt file2.txt... # 加载到缓存区
+git status # 查看缓存区状态
+git commit -m "first commit" # 添加到本地主仓库内
+git push -u origin master
+```
+
 
 
 # 32 Linux日常汇总
@@ -8891,7 +8949,7 @@ cp -r aaa bbb # 将aaa复制到bbb下
 yum install -y make gcc gcc-c++ m4 openssl openssl-devel ncurses-devel unixODBC unixODBC-devel java java-devel
 ```
 
-## 7. 修改文件夹名称：
+## 7. 修改文件夹名称：mv oldname newname
 
 ```python
 mv oldname newname
@@ -8907,6 +8965,22 @@ kill -9 具体进程
 ## 9. linux中部署的系统，IP地址一直变动
 
 ![image-20210726104754036](python学习笔记（基础版）.assets/image-20210726104754036.png)
+
+## 10. 文件夹压缩与解压
+
+```
+常用命令：
+
+单个文件压缩打包 tar czvf my.tar file1
+
+多个文件压缩打包 tar czvf my.tar file1 file2,...
+
+单个目录压缩打包 tar czvf my.tar dir1
+
+多个目录压缩打包 tar czvf my.tar dir1 dir2
+
+解包至当前目录：tar xzvf my.tar
+```
 
 
 
@@ -9020,7 +9094,7 @@ arr = array.array('I', (ord(symbol) for symbol in symbols)) # array('I', [36, 16
 print(arr)
 ```
 
-使用生成器表达式计算笛卡儿积：会产生6中结果，与列表推导式不同的是，内存中不会留一个有6个组合的列表，因为生成器表达式会在每次for循环运行时才会生成一个组合。例如，如果计算两个各自有1000个元素的列表的笛卡尔积，生成器表达式就可以帮忙省掉运行 for 循环的开销，即一个含有 100 万个元素的列表。
+使用生成器表达式计算笛卡儿积：会产生6种结果，与列表推导式不同的是，内存中不会留一个有6个组合的列表，因为生成器表达式会在每次for循环运行时才会生成一个组合。例如，如果计算两个各自有1000个元素的列表的笛卡尔积，生成器表达式就可以帮忙省掉运行 for 循环的开销，即一个含有 100 万个元素的列表。
 
 ```python
 for tshirts in ( '%s %s' % (c, s) for c in colors for s in sizes):
@@ -9034,9 +9108,9 @@ white m
 white l
 ```
 
-生成器表达式逐个产出元素，从来不会一次性产出一个含有 6 个 元素的列表。
+**生成器表达式逐个产出元素，从来不会一次性产出一个含有 6 个 元素的列表。**
 
-生成器表达式：和列表推导式相比，主要是用来避免额外的内存占比。
+**生成器表达式：和列表推导式相比，主要是用来避免额外的内存占比。**
 
 ### 2.3 **元组**
 
@@ -9308,7 +9382,7 @@ a = dict(one=1,two=2,three=3)
 b = {"one":1,"two":2,"three":3}
 c = dict(zip(['one','two', 'three'],[1,2,3]))
 d = dict([('one',1),('two',2),('three',3)])
-e = dict({‘one’:1,"two":2,"three":3})
+e = dict({"one":1,"two":2,"three":3})
 ```
 
 #### 1.2 **字典推导式**
@@ -9683,8 +9757,6 @@ print(set_a) # {'云', '轻', '风', '前', '重', '人', '负', '，', '行', '
 
 简而言之，一等函数其实就是函数。
 
-
-
 ###  1.  `__doc__`
 
 用于生成对象的帮助文档。通俗点讲，这个方法是输出函数注释说明的。
@@ -9808,7 +9880,60 @@ squre_nums = (n*n*yi for n in nums) # 需要的时候，调用next(),直至生�
 print(f'内存后：{mem.memory_usage()}')
 ```
 
-#### 5.1 yield生成器
+#### 5.1 `Iterable`判断对象是否为可迭代对象
+
+**迭代**：使用for循环遍历取值的过程叫做迭代，比如：使用for循环遍历列表获取值的过程
+
+**可迭代对象**：使用for循环遍历取值的对象叫做可迭代对象, 比如：**列表、元组、字典、集合、range、字符串**
+
+`Iterable`作为`collection`库中的一个函数而存在，用来判断一个对象是否为可迭代对象。
+
+```python
+from collections import Iterable
+dd_list = [1, 2, 3, 4]
+_isnot = isinstance(dd_list, Iterable)
+print(_isnot) #True
+```
+
+#### 5.2 iter()迭代器
+
+ 迭代器协议是指：对象需要提供next方法，要么返回迭代中的下一项，要么就引起一个StopIteration异常以终止迭代，防止出现无限循环的情况。**迭代器是一个可以记住遍历位置的对象。**
+
+---
+
+- 迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。
+
+- 迭代器只能往前不会后退。
+
+- 迭代器有两个基本的方法：iter() 和 next(),且字符串，列表或元组对象都可用于创建迭代器，迭代器对象可以使用常规 for 语句进行遍历，也可以使用 next() 函数来遍历。
+
+```python
+str1 = "jiajikang"
+diedai_str = iter(str1)
+for i in diedai_str:
+    print(i)
+```
+
+```python
+# 访问方式二
+while True:
+    try:
+        print(next(diedai_str))
+    except StopIteration:
+        break
+```
+
+**注意**，当我们已经迭代完最后一个数据之后，再次调用next()函数会抛出StopIteration的异常，来告诉我们所有数据都已迭代完成，不能再执行next()函数了。
+
+#### 5.3 yield生成器
+
+生成器自动实现了迭代器协议。**使用了`yield `的函数被称为生成器**，跟普通函数不同的是，生成器是一个返回迭代器的函数。在调用生成器运行的过程中，每次遇到`yield `时函数会暂停并保存当前所有的运行信息，返回`yield `的值, 并在下一次执行` next() `方法时从当前位置继续运行。**调用一个生成器函数，返回的是一个迭代器对象。**
+
+---
+
+**python有两种方法来提供生成器。**
+
+**1. 生成器函数**：
 
 ```python
     def cals_num(numbers):
@@ -9841,7 +9966,25 @@ print(f'内存后：{mem.memory_usage()}')
 
 yield和return的关系和区别：带yield的函数是一个生成器，而不是一个函数了，这个生成器有一个函数就是next函数，next就相当于“下一步”生成哪个数，这一次的next开始的地方是接着上一次的next停止的地方执行的，所以调用next的时候，生成器并不会从foo函数的开始执行，只是接着上一步停止的地方开始，然后遇到yield后，return出要生成的数，此步就结束。
 
-#### 5.2 callable()检查一个对象是否可调用
+**2. 生成器表达式**
+
+**将列表推导中的中括号换成圆括号就是生成器表达式**。squares_list是个列表推导，返回的是个列表。squares使用生成器表达式，返回的是个生成器对象generator object ，由于生成器自动实现了迭代器协议，使用for循环迭代输出。
+
+```python
+squares_list = [i**2 for i in range(10)]
+for i in squares_list:
+    print(i)
+
+squares_list = (i**2 for i in range(10))
+for i in squares_list:
+    print(i, sep=" ")
+```
+
+#### 5.4 @装饰器 
+
+​        见第七章 函数的装饰器和闭包
+
+#### 5.5 callable()检查一个对象是否可调用
 
 **作用**：检查一个对象是否可调用
 
@@ -10065,7 +10208,6 @@ c1: float = 3.14# c1为float型变量，赋值为3.14
 
 ```python
 from typing import List, Tuple, Dict
-
 a1: List[int] # a1是一个list，其中的数据都是int类型，没有赋值
 a2: List[str] = ['1','2','3']# a2是一个list，其中的数据都是int类型，赋值为['1','2','3']
 b1: Tuple[int] # a1是一个tuple，其中的数据都是int类型，没有赋值
@@ -10076,7 +10218,7 @@ c2: [Dict[str, int]] = {'a':1, 'b':2, 'c':3} # c1是一个dict，其中key为str
 
 ### 11. `reduce()、mul()、itemgetter()`
 
-#### 1. **reduce()** 函数会对参数序列中元素进行累积:
+#### 1. **reduce()** 函数会对参数序列中元素进行累积
 
 reduce() 函数语法：
 
@@ -10120,7 +10262,7 @@ print(fact(3))
 
 ---
 
-####  2. `itemgetter()`：
+####  2. `itemgetter()`：获取**对象的哪些维的数据**
 
 operator模块提供的itemgetter函数用于获取**对象的哪些维的数据**，**参数为一些序号（即需要获取的数据在对象中的序号）**，下面看例子。
 
@@ -10230,15 +10372,150 @@ p(1,2) # 15
 
 
 
-## 第六章 
+## 第六章  使用一等函数实现涉及模式
 
-git add file.txt file2.txt... # 加载到缓存区
+看不懂
 
-git status # 查看缓存区状态
+## 第七章 函数的装饰器和闭包
 
-git commit -m "first commit" # 添加到本地主仓库内
+### 1. 闭包
 
-git push -u origin master
+**闭包：**在Python 中允许在一个方法中嵌套另一个方法。这个内部方法可以保留外部方法的作用域，尽管外部方法不是全局的，内部方法也可以访问到外部方法的参数和变量。
+
+```python
+"""闭包：
+      1. 函数内部的属性，都是有生命周期，都是在函数执行期间。
+         【func()调用的时候，func()内部才会存活。我们外部就是想用func1(), 为了让func1()存活下来，我们使用return返回func1()】
+          闭包真正的意义：让嵌套的函数之外的部分“活下来”
+          
+      2. 内部函数对外部函数**作用域**里**变量**的引用【a变量】。
+      
+   总结：
+       1. 外部函数返回内部函数，并且内部函数使用外部函数的变量
+       2. 闭包内的闭包函数(func1)私有化了变量，完成了数据的封装，类似于面向对象
+   用途：
+      实现装饰器的过程中，用到闭包
+"""
+# 案例1
+def func():  # 外部函数
+    a = 1 # 外部函数作用域里的变量
+    print("this is func")
+    def func1(num):  # 内部函数
+        print("this is func1")
+        print(num + a)
+    return func1
+# func() # 运行外部函数，内部函数就被创建
+var = func() # 创建过程在func函数的执行过程中; 此时的var就是func1
+var(3)
+del var # 变量a才会消失
+
+# 案例2
+mylist = [1,2,3,4,5]
+def func(obj):
+    print('func:', obj)
+    def func1():
+        obj[0] += 1 # 内部函数：引用了外部函数的变量obj，
+        print('func1:', obj)
+    return func1 # 外部函数返回内部函数
+
+var = func(mylist)
+var() # [2, 2, 3, 4, 5]
+var() # [3, 2, 3, 4, 5]
+```
+
+### 2. 装饰器
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10343,9 +10620,19 @@ git push -u origin master
 
 - pycharm创建一个而独立的虚拟环境：https://www.cnblogs.com/shyern/p/11284127.html
 
+- gitlab
 
+  修改文件之后：
 
+  ```
+  git pull # 更新代码
+  git status # 查看状态
+  git add -A #加载状态内的全有文件到缓存区
+  git commit -m "jjk commit" # 提交到本地仓库
+  git push #上传到gitlab服务器
+  ```
 
+  
 
 
 
