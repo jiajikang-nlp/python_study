@@ -1,4 +1,4 @@
-# Pycharm的基础设置
+# chd   Pycharm的基础设置
 
 ==考虑使用xmind==
 
@@ -8480,6 +8480,12 @@ for i, row in population.iterrows():
     print(i,"city is:",row["city"])
 ```
 
+## 34 python查看安装的哪里库
+
+```
+pip/pip3 list
+```
+
 
 
 # 30、闭包
@@ -8797,7 +8803,7 @@ def wrapper(*args,**kwargs):
     pass
 ```
 
-## 32 github上传
+# 32 github上传
 
 ```pascal
 git add file.txt file2.txt... # 加载到缓存区
@@ -8808,7 +8814,9 @@ git push -u origin master
 
 
 
-# 32 Linux日常汇总
+
+
+# 32、Linux日常汇总
 
 ## 1. Linux下统计指定文件夹大小
 
@@ -8982,9 +8990,1246 @@ kill -9 具体进程
 解包至当前目录：tar xzvf my.tar
 ```
 
+## 11. linux版本查看
+
+**查看L**inux内核版本命令（两种方法）：
+
+**1、cat /proc/version**
+
+显示正在运行的内核版本。
+
+**2、uname -a**
+
+显示电脑以及操作系统的相关信息。
+
+---
+
+**查看**Linux系统版本的命令（3种方法）：
+
+1、lsb_release -a，即可列出所有版本信息
+
+**这个命令适用于所有的Linux发行版**，包括RedHat、SUSE、Debian…等发行版，但是在debian下要安装lsb。
+
+2、cat /etc/redhat-release，这种方法只适合Redhat系的Linux
+
+3、cat /etc/issue，此命令也适用于所有的Linux发行版。显示的是发行版本信息。
+
+## 12. Linux中安装软件创建软连接
+
+创建软连接：例如在Linux系统中安装了一个pycharm，想要直接在命令行下启动，则需要创建一个软连接，例如：
+
+`ln -s /root/pycharm-2019.1/bin/pycharm.sh /usr/sbin/pycharm`
+
+## 13. Linux中查找文件
+
+`find -name 具体文件名`
+
+## 14. Linux中修改anaconda镜像（anaconda更改镜像源）
 
 
-# <font color=red>**33、流畅的python**</font>
+
+##  
+
+
+
+
+
+
+
+# 33、软件部署
+
+## 1. centos中部署anaconda
+
+- 下载：`wget https://www.anaconda.com/products/individual`
+
+- 安装：`sh Anaconda3-2020.07-Linux-x86_64.sh` 
+
+  > 1）询问是否接收license，选择`yes`
+  >
+  > 2）设置安装路径，我这里是安装在`/home/software/anaconda3`路径下
+  >
+  > 3）是否添加PATH到/root/.bashrc文件中。
+
+- 验证结果：命令行下输入`conda`
+
+  >如若未成功，可进行环境变量配置
+  >
+  >**输入编辑命令：**`vim /root/.bashrc`
+  >
+  >按i进入编辑模式，在最后添加：`export PATH="/home/software/anaconda3/bin:$PATH"`
+  >
+  >**刷新环境变量：`source ~/.bashrc`**
+
+
+
+## 2. centos中部署jdk
+
+文件解压：
+
+tar -zxvf 文件名
+
+环境变量
+
+```
+#java environment
+export JAVA_HOME=/usr/jdk1.8.0_211
+export CLASSPATH=.:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar
+export PATH=$PATH:${JAVA_HOME}/bin
+```
+
+## 3. centos中部署pycharm
+
+pycharm下载：[https://www.jetbrains.com/pycharm/download/#section=linux](https://www.jetbrains.com/pycharm/download/#section=linux)
+
+1. 需要安装图形软件
+
+   **centos安装 MATE 桌面环境为例**
+
+   ```
+   yum groups install "X Window System"            #--安装 X Window System
+   yum groups install "MATE Desktop"               #--安装 MATE Desktop
+   systemctl set-default graphical.target          #--设置默认通过桌面环境启动服务器
+   reboot                                          #--重启服务器
+   ```
+
+   **Ubuntu 安装图形化界面**
+
+   ```
+   apt-get install x-window-system-core     #--安装桌面环境软件包
+   apt-get install gnome-core
+   apt-get install gdm
+   reboot                                   #--重启
+   ```
+
+   
+
+2. 解压下载的文件
+
+   ```
+   tar -xzvf pycharm-professional-2018.3.4.tar.gz
+   ```
+
+3.  进入到`./bin`目录
+
+   ```
+   ./pycharm.sh
+   ```
+
+4. 创建软链接
+
+   ```
+   为了更加方便，可以直接创建软链接，例如：
+   ln -s /root/pycharm-2019.1/bin/pycharm.sh /usr/sbin/pycharm
+   ```
+
+## 4. centos中部署pyspark
+
+### 4.1 windows环境
+
+#### 4.1.1 安装环境
+
+
+
+```python
+1. 查找安装的库文件路径(site-packages)
+import sys
+sys.path
+2. 在spark文件种找到文件：py4j-0.10.4-src.zip和pyspark.zip
+```
+
+![image-20211104161745265](python学习笔记（基础版）.assets/image-20211104161745265.png)
+
+
+
+
+
+### 4.2 Linux环境
+
+#### 4.2.1 安装环境
+
+
+
+## 5. centos中部署CDH5.15.1
+
+### 5.1 jdk1.8
+
+#### 1. 下载链接
+
+[https://www.oracle.com/java/technologies/downloads/#java8](https://www.oracle.com/java/technologies/downloads/#java8)
+
+![image-20211109103244434](python学习笔记（基础版）.assets/image-20211109103244434-16364251653461.png)
+
+#### 2. 安装部署
+
+1. 解压文件
+
+   解压文件，放到自己指定的位置，具体解压命令如下所示：
+
+   ```
+   tar -zxvf  tar -zxvf jdk-8u291-linux-x64.tar.gz
+   ```
+
+   ![image-20211109104230144](python学习笔记（基础版）.assets/image-20211109104230144.png)
+
+2. 环境部署
+
+   A：编辑文件：`vi /etc/profile`，添加java环境变量
+
+   ```
+   #java envermiment
+   export JAVA_HOME=/home/jdk1.8.0_291/
+   export PATH=$JAVA_HOME/bin:$PATH
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+   ```
+
+   ![image-20211109104201953](python学习笔记（基础版）.assets/image-20211109104201953.png)
+
+   B：运行`source /etc/profile`使其环境生效，并通过`java -version`验证。
+
+   ![image-20211109104525566](python学习笔记（基础版）.assets/image-20211109104525566.png)
+
+### 5.2 mysql5.7.36
+
+#### 1. 获取安装包
+
+- 由于CentOS 的yum源中没有mysql，需要到mysql的官网下载yum repo配置文件。
+  下载命令：`wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm`
+
+  <img src="python学习笔记（基础版）.assets/image-20211109110718476.png" alt="image-20211109110718476" style="zoom:85%;" />
+
+#### 2. 安装步骤
+
+- 然后进行repo的安装（在获取安装包的目录下）：
+
+  `rpm -ivh mysql57-community-release-el7-9.noarch.rpm`
+
+  <img src="python学习笔记（基础版）.assets/image-20211109110828014.png" alt="image-20211109110828014" style="zoom:73%;" />
+
+- 执行完成后会在`/etc/yum.repos.d/`目录下生成两个`repo`文件:`mysql-community.repo，mysql-community-source.repo`
+
+  <img src="python学习笔记（基础版）.assets/image-20211109111054473.png" alt="image-20211109111054473" style="zoom:71%;" />
+
+- 使用yum命令即可完成安装【注意：必须进入到 /etc/yum.repos.d/目录后再执行以下脚本】
+
+  安装命令：`yum install mysql-server`
+
+#### 3. 启动msql
+
+- 启动MySQL命令：`systemctl start mysqld`
+
+  <img src="python学习笔记（基础版）.assets/image-20211109114147292.png" alt="image-20211109114147292" style="zoom:69%;" />
+
+- 查看安装时产生的临时密码：`'temporary password' /var/log/mysqld.log`
+
+  <img src="python学习笔记（基础版）.assets/image-20211109123019184.png" alt="image-20211109123019184" style="zoom:77%;" />
+
+  倘若没有获取临时密码，则删除原来安装过的mysql残留的数据：`rm -rf /var/lib/mysql`再启动mysql：`systemctl start mysqld`  
+
+#### 4. 登录
+
+- 方式一：`mysql -u root -p`
+
+  然后输入密码（刚刚获取的临时密码）
+
+  <img src="python学习笔记（基础版）.assets/image-20211109123823075.png" alt="image-20211109123823075" style="zoom:80%;" />
+
+- 修改：`vim /etc/my.cnf(注：windows下修改的是my.ini)`
+
+  在文档内搜索mysqld定位到[mysqld]文本段：在[mysqld]后面任意一行添加`skip-grant-tables`用来**跳过密码验证的过程**，然后命令重启：`systemctl restart mysqld ` .
+
+- 在上面的基础上，以后就登录方式直接是：`mysql -uroot -proot`
+
+- 查看mysql版本
+
+  ![image-20211109143010565](python学习笔记（基础版）.assets/image-20211109143010565.png)
+
+- 忘记密码：修改密码
+
+  <img src="python学习笔记（基础版）.assets/image-20211109210452897.png" alt="image-20211109210452897" style="zoom:80%;" />
+
+- 创建远程访问的用户
+
+  <img src="python学习笔记（基础版）.assets/image-20211109210814393.png" alt="image-20211109210814393" style="zoom:80%;" />
+
+
+
+
+
+
+
+
+
+
+
+#### 5. 相关命令
+
+启动：`systemctl start mysqld`
+
+重启：`systemctl restart mysqld`
+
+关闭：`systemctl stop mysqld `
+
+查看运行状态：`systemctl status mysqld`
+
+设置开机启动：`systemctl enable mysqld `
+
+关闭开机启动：`systemctl disable mysqld`
+
+### 5.3 CDH
+
+需求描述：centos7适配cdh5.15.1最新稳定版flink parcel包制作。
+
+---
+
+测试平台：10.42.3.71       10.42.3.80      10.42.3.54
+
+账号：root
+
+密码：mininet
+
+---
+
+**jdk1.8**：10.42.3.71，10.42.3.80，10.42.3.54
+
+**mysql5.7：**10.42.3.71
+
+
+
+1 操作系统 CentOS7 64位 ok
+2 JDK "1.8.0_291" ok
+3 Cloudera Manager 5.15.1
+4 CDH 5.15.1
+5 数据库 MySQL5.7 OK
+6 JDBC驱动 5.1.40
+
+entos7 环境下安装CDH 首先要安装cloudera manager 然后通过cm的图形界面来安装CDH 和一些相关组件 需要安装mysql来存储cloudera manager的一些数据 也可以使用其他数据库
+
+----
+
+
+
+关闭防火墙
+
+```
+[root@localhost ~]# systemctl stop firewalld                           #关闭防火墙
+[root@localhost ~]# systemctl disable firewalld                        #开机禁用防火墙
+[root@localhost ~]# systemctl status firewalld                         #查看防火墙状态是否关闭
+
+
+systemctl start firewalld.service   //开启防火墙
+systemctl stop firewalld.service   //关闭防火墙
+systemctl enable firewalld.service  //设置开机自动启动
+systemctl disable firewalld.service   //设置关闭开机制动启动
+firewall-cmd --reload  //在不改变状态的条件下重新加载防火墙
+```
+
+修改host
+
+```
+echo '10.42.3.71 cdh01
+10.42.3.80 cdh02
+10.42.3.54 cdh03' >> /etc/hosts
+```
+
+
+
+----
+
+#### 1. 系统环境说明
+
+- 主机规划：
+
+| 主机名            | 角色   | IP地址     | 用途                       | 配置        |
+| ----------------- | ------ | ---------- | -------------------------- | ----------- |
+| cdh01.example.com | 主节点 | 10.42.3.71 | CM、Cloudera Server、mysql | 8C/16G/150G |
+| cdh02.example.com | 从节点 | 10.42.3.80 | Cloudera Agent             | 8C/16G/150G |
+| cdh03.example.com | 从节点 | 10.42.3.54 | Cloudera Agen              | 8C/16G/150G |
+
+PS：主机的内存最好在10G以上，才能保证环境的正常运行。
+
+#### 2.  Apache HTTP 服务安装
+
+**温馨提示**：不是非必要配置此项步骤
+
+因为有些服务器对访问外网有严格限制时，可以配置一个 HTTP服务，将下载的资源上传上去，方便后面的安装。
+
+**Step 1：**先查Apache http服务状态
+
+如果状态可查到，只需要修改配置文件(查看`Step 3`)，重启服务就行。如果状态查询失败，需要先安装 Apache HTTP 服务(接着`Step 2`)。
+
+```
+sudo systemctl start httpd
+```
+
+![image-20211109163422092](python学习笔记（基础版）.assets/image-20211109163422092.png)
+
+**Step 2：**安装 Apache http服务
+
+```
+yum -y install httpd
+```
+
+<img src="python学习笔记（基础版）.assets/image-20211109163539966.png" alt="image-20211109163539966" style="zoom:70%;" />
+
+**Step 3：**修改 Apache http 配置
+
+配置如下内容。最后保存退出。可以查看到配置的文档路径为：/var/www/html。其他的配置项可以默认，也可以根据情况修改。命令：`vim /etc/httpd/conf/httpd.conf` 中`<Directory "/var/www/html"> </Directory>`位置处添加：
+
+```
+IndexOptions NameWidth=100 Charset=UTF-8 FancyIndexing FoldersFirst
+```
+
+配置完后，记得重启服务。
+
+**Step 4：**创建资源路径
+
+命令：`sudo mkdir -p /var/www/html/cloudera-repos`
+
+#### 3. Host 配置
+
+将集群`Host`的`IP`和域名配置到每台机器的`/etc/hosts`。
+
+注意 hostname必须是一个FQDN（全限定域名），例如myhost-1.example.com，否则后面转到页面时在启动Agent时有个验证会无法通过。
+
+##### 3.1  修改主机名
+
+**cdh1**：`sudo hostnamectl set-hostname cdh01.example.com`
+
+**cdh2**：`sudo hostnamectl set-hostname cdh02.example.com`
+
+**cdh3**：`sudo hostnamectl set-hostname cdh03.example.com`
+
+##### 3.2 配置`/etc/hosts`（只给主机添加）
+
+```
+echo '10.42.3.71 cdh01.example.com
+10.42.3.80 cdh02.example.com
+10.42.3.54 cdh03.example.com' >> /etc/hosts
+```
+
+或者直接编辑`/etc/hosts`：
+
+```
+10.42.3.71 cdh01.example.com
+10.42.3.80 cdh02.example.com
+10.42.3.54 cdh03.example.com
+```
+
+##### 3.3 配置`/etc/sysconfig/network`
+
+文件中添加：
+
+**cdh1**：`HOSTNAME=cdh01.example.com`
+
+**cdh2**：`HOSTNAME=cdh02.example.com`
+
+**cdh3**： `HOSTNAME=cdh03..example.com`
+
+#### 4. NTP配置
+
+NTP服务在集群中是非常重要的服务，它是为了保证集群中的每个节点的时间在同一个频道上的服务。
+
+规划，当可以访问时间同步服务，例如可以直接和亚洲NTP服务进行同步。例如，不能访问时，可以将cdh1.example.com配置为NTP服务端。集群内节点和这个服务进行时间同步。
+
+ip  用途
+
+```
+asia.pool.ntp.org  亚洲NTP时间服务地址
+cdh01.example.com    ntpd服务，以本地时间为准
+cdh02.example.com    ntpd客户端。与ntpd服务同步时间
+cdh03.example.com    ntpd客户端。与ntpd服务同步时间
+```
+
+##### 4.1 step1 `ntpd service`
+
+NTP服务，如果没有先安装：`systemctl status ntpd.service`
+
+安装命令：`yum -y install ntp`
+
+```
+systemctl stop ntpd.service
+systemctl start ntpd.service
+systemctl status ntpd.service
+systemctl restart ntpd.service
+systemctl enable ntpd.service #开机自启动
+```
+
+##### 4.2 step2 与系统时间一起同步
+
+**非常重要 硬件时间与系统时间一起同步。**
+
+修改配置文件`vim /etc/sysconfig/ntpd`。末尾新增代码**SYNC_HWCLOCK=yes**
+
+```
+\# Command line options for ntpd
+\#OPTIONS="-x -u ntp:ntp -p /var/run/ntpd.pid"
+OPTIONS="-g"
+SYNC_HWCLOCK=yes
+```
+
+注意：修改完成后，需要重启服务
+
+##### 4.3 step3 添加NTP服务列表
+
+分别编辑不同虚拟机的`vim /etc/ntp/step-tickers`
+
+```
+\# List of NTP servers used by the ntpdate service.
+\#0.centos.pool.ntp.org
+cdh01.example.com # cdh02.example.com,cdh03.example.com 
+```
+
+##### 4.4 step4 NTP ntp.conf
+
+修改ntp配置文件`vim /etc/ntp.conf`
+
+创建定时任务：`crontab -e` ,添加定时任务
+
+```
+#每天凌晨1点进行时间同步
+0 1 * * * /usr/sbin/ntpdate -u ntp.aliyun.com
+```
+
+查看定时任务：`crontab -l`
+
+验证定时任务：`ntpdate -u ntp.aliyun.com`
+
+---
+
+三台虚拟机都作为客户端以阿里云服务作为ntp服务端来同步时间。
+
+说明：以上是在能访问外网的情况下使用，考虑到内网环境，无法访问外网，现在需要重新另外一种方式：
+
+----
+
+修改NTP服务端`ntp.conf`: 
+
+修改ntp配置文件`vim /etc/ntp.conf`  按照如下内容，`/etc/ntp.conf`中没有的就往里面添加.
+
+```
+driftfile /var/lib/ntp/drift
+logfile /var/log/ntp.log
+pidfile   /var/run/ntpd.pid
+leapfile  /etc/ntp.leapseconds
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys
+#允许任何IP的客户端进行时间同步，但不允许修改NTP服务端参数，default类似于0.0.0.0
+restrict default kod nomodify notrap nopeer noquery
+restrict -6 default kod nomodify notrap nopeer noquery
+#restrict 10.135.3.58 nomodify notrap nopeer noquery
+#允许通过本地回环接口进行所有访问
+restrict 127.0.0.1
+restrict  -6 ::1
+# 允许内网其他机器同步时间。网关和子网掩码。注意有些集群的网关可能比价特殊，可以用下面的命令查看
+# 查看网关信息：/etc/sysconfig/network-scripts/ifcfg-网卡名；route -n、ip route show  
+restrict 192.168.33.2 mask 255.255.255.0 nomodify notrap
+# 允许上层时间服务器主动修改本机时间
+#server asia.pool.ntp.org minpoll 4 maxpoll 4 prefer
+# 外部时间服务器不可用时，以本地时间作为时间服务
+server  127.127.1.0     # local clock
+fudge   127.127.1.0 stratum 10
+```
+
+#### 5. 资源上传
+
+- 下载资源
+
+- 上传到Apache HTTP 服务器上的目录：/var/www/html/cloudera-repos。
+
+  ```
+  [root@cdh01 ~]# mkdir -p /var/www/html/cloudera-repos
+  [root@cdh01 ~]# cd /var/www/html/cloudera-repos
+  ```
+
+- 修改文件权限
+
+  ```
+  chmod 555 -R /var/www/html/cloudera-repos
+  ```
+
+- 移动文件
+
+  ```
+  CDH-6.2.0-1.cdh6.2.0.p0.967373-el7.parcel
+  CDH-6.2.0-1.cdh6.2.0.p0.967373-el7.parcel.sha1
+  manifest.json
+  到/var/www/html/cloudera-repos/cdh6/6.2.0/parcels中
+  ```
+
+- 移动文件
+
+  ```
+  cloudera-manager-agent-6.2.0-968826.el7.x86_64.rpm
+  cloudera-manager-daemons-6.2.0-968826.el7.x86_64.rpm
+  cloudera-manager-server-6.2.0-968826.el7.x86_64.rpm
+  cloudera-manager-server-db-2-6.2.0-968826.el7.x86_64.rpm
+  enterprise-debuginfo-6.2.0-968826.el7.x86_64.rpm
+  oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm
+  到/var/www/html/cloudera-repos/cm6/6.2.0/redhat7/yum/RPMS/x86_64中
+  ```
+
+- 移动文件
+
+  ```
+  cloudera-manager.repo
+  RPM-GPG-KEY-cloudera
+  到/var/www/html/cloudera-repos/cm6/6.2.0/redhat7/yum
+  ```
+
+- 移动文件
+
+  ```
+  allkeys.asc移动到/var/www/html/cloudera-repos/cm6/6.2.0中
+  ```
+
+- 进入到Apache HTTP服务器的：
+
+  ```
+  yum -y install createrepo
+  cd /var/www/html/cloudera-repos/cm6/6.2.0/redhat7/yum/
+  yum repolist
+  createrepo .
+  ```
+
+- 下载数据库驱动
+
+  ```
+  mysql-connector-java-5.1.46-bin.jar，记得务必将其名字改为mysql-connector-java.jar
+  ```
+
+  \#下载连接：
+
+  ```
+  https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz
+  ```
+
+  \# 解压
+
+  tar zxvf mysql-connector-java-5.1.46.tar.gz
+
+  \# 重命名mysql-connector-java-5.1.46-bin.jar为mysql-connector-java.jar，并放到/usr/share/java/下
+
+  ```
+  mv mysql-connector-java-5.1.46-bin.jar /usr/share/java/mysql-connector-java.jar
+  ```
+
+  \# 同时发送到其它节点
+
+  ```
+  scp /usr/share/java/mysql-connector-java.jar root@cdh2:/usr/share/java/
+  scp /usr/share/java/mysql-connector-java.jar root@cdh3:/usr/share/java/
+  ```
+
+
+
+- 设置安装节点的 cloudera-manager yum信息
+
+```
+wget http://10.42.3.71/cloudera-repos/cm6/6.2.0/redhat7/yum/cloudera-manager.repo -P /etc/yum.repos.d/
+sudo rpm --import http://10.42.3.71/cloudera-repos/cm6/6.2.0/redhat7/yum/RPM-GPG-KEY-cloudera
+```
+
+- 修改（**其他节点同步更新**）
+
+修改 cloudera-manager.repo。执行命令：
+
+vim /etc/yum.repos.d/cloudera-manager.repo
+
+修改为如下（注意，原先的https一定要改为http）
+
+```
+[cloudera-manager]
+
+name=Cloudera Manager 6.2.0
+
+baseurl=http://10.42.3.71/cloudera-repos/cm6/6.2.0/redhat7/yum/
+
+gpgkey=http://10.42.3.71/cloudera-repos/cm6/6.2.0/redhat7/yum/RPM-GPG-KEY-cloudera
+
+gpgcheck=1
+
+enabled=1
+
+autorefresh=0
+
+type=rpm-md
+```
+
+- 更新yum（其他节点同步更新）
+
+  ```
+  sudo yum clean all
+  sudo yum makecache
+  ```
+
+
+
+#### 6. 安装 Cloudera Manager
+
+**在 Server 端 执行**（主节点）
+
+```
+yum install -y cloudera-manager-daemons
+yum install -y cloudera-manager-agent
+yum install -y cloudera-manager-server
+```
+
+**在 Agent 端 执行**（只是在重节点）
+
+```
+yum install -y cloudera-manager-agent
+yum install -y cloudera-manager-daemons
+```
+
+在安装完后，程序会自动在server节点上创建一个如下文件或文件夹：
+
+```
+ ls /etc/cloudera-scm-agent/config.ini
+ ls /etc/cloudera-scm-server/
+ ls /opt/cloudera
+```
+
+**编辑**（所有节点都需要）
+
+修改agent配置文件，将Cloudera Manager Agent 配置为指向 Cloudera Manager Serve。
+
+这里主要是配置 Agent节点的 config.ini 文件。
+
+`vim /etc/cloudera-scm-agent/config.ini`
+
+\#配置如下项
+
+\# Hostname of the CM server. 运行Cloudera Manager Server的主机的名称
+
+```
+server_host=cdh01.example.com
+```
+
+\# Port that the CM server is listening on. 运行Cloudera Manager Server的主机上的端口
+
+```
+server_port=7182
+```
+
+**#1位启用为代理使用 TLS 加密，如果前面没有设置，一定不要开启TLS**
+
+```
+#use_tls=1
+```
+
+#### 7. 设置 Cloudera Manager 数据库
+
+- 登陆 Mysql后执行如下命令
+
+```
+CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+```
+
+- 顺便把其他的数据库也创建
+
+```
+CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE hue DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE metastore DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE sentry DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE oozie DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+```
+
+- 初始化数据库
+
+这一步会在`/etc/cloudera-scm-server/db.properties`新配置
+
+请确认**/usr/share/java**是否有**mysql-connector-java.jar
+
+```
+/opt/cloudera/cm/schema/scm_prepare_database.sh 
+在108行local JAVA8_HOME_CANDIDATES=()方法中将自己配置的JAVA_HOME填入：
+  local JAVA8_HOME_CANDIDATES=(
+  	'/usr/java/jdk1.8.0_181-cloudera/'
+
+然后执行：
+sudo /opt/cloudera/cm/schema/scm_prepare_database.sh -h 10.42.3.71 mysql scm scm Mininet@313
+```
+
+#### 8. 启动Cloudera Manager Serverx
+
+- 先编辑文件，然后在启动，具体如下所示：
+
+- 时区问题可以在**/opt/cloudera/cm/bin/cm-server**文件中，大概第**40**行添加CMF_OPTS="$CMF_OPTS -Duser.timezone=**Asia/Shanghai**"
+
+```
+sudo systemctl start cloudera-scm-server
+sudo systemctl status cloudera-scm-server
+sudo tail -100f /var/log/cloudera-scm-server/cloudera-scm-server.log
+```
+
+
+
+
+
+- 拷贝 权限 重命名
+
+```
+cp /var/www/html/cloudera-repos/cdh6/6.2.0/parcels/* /opt/cloudera/parcel-repo/
+chown cloudera-scm.cloudera-scm /opt/cloudera/parcel-repo/*
+```
+
+![image-20211109235437476](python学习笔记（基础版）.assets/image-20211109235437476.png)
+
+```
+sudo systemctl restart cloudera-scm-server
+sudo systemctl restart cloudera-scm-agent
+```
+
+
+
+- 转到 Web 浏览器
+
+```
+在Web浏览器数据 : http://10.42.3.71:7180/cmf/license/wizard?returnUrl=%2Fcmf%2Fexpress-wizard%2Fwizard
+
+
+登录Cloudera Manager Admin Console，默认凭证为
+**Username: admin**
+**Password: admin**
+```
+
+
+
+
+
+
+
+![image-20211109230938236](python学习笔记（基础版）.assets/image-20211109230938236.png)
+
+02:
+
+![image-20211109231033517](python学习笔记（基础版）.assets/image-20211109231033517.png)
+
+03:
+
+![image-20211109231102004](python学习笔记（基础版）.assets/image-20211109231102004.png)
+
+04:
+
+http://10.42.3.71/cloudera-repos/cm6/6.2.0
+
+
+
+![image-20211109231853821](python学习笔记（基础版）.assets/image-20211109231853821.png)
+
+
+
+
+
+
+
+```
+yum -y install createrepo
+cd /var/www/html/cloudera-repos/cm6/6.2.0/redhat7/yum/
+yum repolist
+```
+
+ 
+
+
+
+
+
+mysql：
+
+```
+ar -xf mysql-5.7.25-1.el7.x86_64.rpm-bundle.tar
+```
+
+因为是离线环境，建议在使用yum命令前先用以下命令清除本地mirrorlist
+
+```
+yum clean expire-cache
+```
+
+如果不执行上述命令系统可能会耗费大量时间尝试联网查找需要的包（反复提示"正在尝试其它镜像"）。
+
+ 
+
+https://www.cnblogs.com/yy3b2007com/p/10497787.html
+
+
+
+
+
+
+
+
+
+
+
+### 资源链接
+
+CDH5版本下载地址/部署参考链接
+http://archive.cloudera.com/cm5/repo-as-tarball/
+https://www.cnblogs.com/yangshibiao/p/10862656.html#_label1_0
+
+CDH6版本下载地址/部署参考链接
+https://archive.cloudera.com/cdh6/
+https://www.jianshu.com/p/f804bd587d95
+
+----
+
+
+
+
+
+
+
+- http://ro-bucharest-repo.bigstepcloud.com/cloudera-repos/cm6/redhat/7/x86_64/cm/6.2.0/RPMS/x86_64/
+
+![image-20211110102011670](python学习笔记（基础版）.assets/image-20211110102011670.png)
+
+- http://ro-bucharest-repo.bigstepcloud.com/cloudera-repos/cdh5/parcels/5.15.1.4/
+
+  ![image-20211110103125928](python学习笔记（基础版）.assets/image-20211110103125928.png)
+
+
+
+
+
+
+
+账号：912624568@qq.com
+
+密码：Jiajikang@1993
+
+
+
+-----
+
+B站
+
+----
+
+系统环境准备
+ ![image-20211110093701478](python学习笔记（基础版）.assets/image-20211110093701478.png)
+
+![image-20211110093745201](python学习笔记（基础版）.assets/image-20211110093745201.png)
+
+
+
+1,2,3,4,5,6,8每台服务器都需要装
+
+----
+
+#### 步骤开始：
+
+1. 网络配置（所有节点）
+
+   ```
+   # cdh1
+   sudo hostnamectl set-hostname cdh01.example.com
+   # cdh2
+   sudo hostnamectl set-hostname cdh02.example.com
+   # cdh3
+   sudo hostnamectl set-hostname cdh03.example.com
+   
+   
+   #配置 /etc/hosts（只给主节点添加）
+   192.168.33.3 cdh1.example.com cdh1
+   192.168.33.6 cdh2.example.com cdh2
+   192.168.33.9 cdh3.example.com cdh3
+   -------------------------------------
+   echo '10.42.3.71 cdh01.example.com
+   10.42.3.80 cdh02.example.com
+   10.42.3.54 cdh03.example.com' >> /etc/hosts
+   -----------------------------------------
+   测试配置：ping -c 3 cdh02.example.com
+   
+   
+   # 配置 /etc/sysconfig/network （所有节点）
+   # cdh1
+   HOSTNAME=cdh01.example.com
+   # cdh2
+   HOSTNAME=cdh02.example.com
+   # cdh3
+   HOSTNAME=cdh03.example.com
+   ```
+
+   
+
+2.  SSH免密要登录
+
+   ```
+   主节点：ssh-keygen -t rsa
+   生成在：~/.ssh/*
+   修改权限:chmod 600 ~/.ssh
+   ```
+
+   ![image-20211110141159756](python学习笔记（基础版）.assets/image-20211110141159756-16365251909002.png)
+
+   ```
+   将整个./ssh/所有文件复制到其他节点服务器中的相同目录下
+   注意：把其他节点服务器中相同目录下的文件给删掉。
+   ```
+
+   ---
+
+   另外一种方式：
+
+   ```
+   ssh-keygen -t rsa # 所有节点都执行
+   ssh-copy-id cdh01.example.com # 所有节点都执行，命令不变
+   -----所有虚拟接的公钥文件都追加到主节点上-----------------
+   scp -r ~/.ssh/authorize_keys root@cdh02.example.com:~/.ssh/
+   scp -r ~/.ssh/authorize_keys root@cdh03.example.com:~/.ssh/
+   
+   测试：ssh ip
+   ```
+
+3. 防火墙关闭
+
+   ```
+   [root@localhost ~]# systemctl stop firewalld                           #关闭防火墙
+   [root@localhost ~]# systemctl disable firewalld                        #开机禁用防火墙
+   [root@localhost ~]# systemctl status firewalld                         #查看防火墙状态是否关闭
+   
+   
+   systemctl start firewalld.service   //开启防火墙
+   systemctl stop firewalld.service   //关闭防火墙
+   systemctl enable firewalld.service  //设置开机自动启动
+   systemctl disable firewalld.service   //设置关闭开机制动启动
+   firewall-cmd --reload  //在不改变状态的条件下重新加载防火墙
+   
+   ```
+
+4.  SELINUX关闭
+
+   ```
+   临时关闭:命令行下：setenforce 0
+   永久关闭：
+   修改内容：/etc/selinux/config: 将SELINUX=enforcing修改成SELINUX=disabled （所有节点都需要） 
+   ```
+
+5. 安装JDK配置环境变量
+
+   ```
+   上传到随便个目录中，例如：/home/tools/
+   
+   所有节点都需要：
+   安装命令：rpm -ivh jdk......rpm
+   #java envermiment
+   export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera
+   export PATH=$JAVA_HOME/bin:$PATH
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+   ```
+
+6. 安装NTP
+
+   ```
+   所有节点都需要：
+   在线安装
+   yum -y install ntp
+   下载安装包不安装：
+   yum install ntp --downloadonly --downloaddir=/home/tools/ntp
+   离线安装：
+   # rpm -ivh ntp-4.2.6p5-28.el7.centos.x86_64.rpm
+   
+   查看是否安装成功：rpm -q ntp
+   
+   --------------------------02--------------------------
+   yum list |grep ntpd # yum确认是否安装
+   yum -y install ntp
+   systemctl start ntpd # 启动服务
+   systemctl status ntpd #查看状态
+   systemctl enable ntpd # 设置开机启动
+   systemctl list-unit-files|grep ntpd # 查看是否设置开机启动
+   ----------------------03--------------------------------
+   NTP服务器端配置首先确定服务器的时区正确
+   timedatectl 查看具体时间时区
+   timedatectl list-timezones 查看具所有时区
+   timedatectl set-timezone Asia/Shanghai 设置时区
+   ----------------------04--------------------------------
+   修改ntp同步时间的地址为内网的ntp地址(所有节点)
+   首先在/etc/hosts加入
+   10.42.3.71 pool.ntp.org  #内网ntp服务地址
+   
+   修改/etc/ntp.conf为（只要主节点）
+   driftfile /var/lib/ntp/drift
+   restrict default nomodify notrap nopeer noquery
+   restrict 127.0.0.1
+   restrict ::1
+   server 10.42.3.71
+   includefile /etc/ntp/crypto/pw
+   keys /etc/ntp/keys
+   disable monitor
+   ----------------------05--------------------------------
+   service ntpd restart # 重启ntpd服务
+   同步时间：除了主节点
+   命令：ntpdate -u 10.42.3.71
+   
+   完成！！！
+   ```
+
+7. Mysql安装
+
+   ```
+   （1）查询：rpm -qa | grep mariadb
+   （2）卸载mariadb：rpm -e --nodeps mariadb-libs-5.5.60-1.el7_5.x86_64
+   -------------------------
+   （1）检查安装libaio环境：
+    rpm -qa|grep libaio
+   （2）没有则安装，上传后安装命令：
+    yum install libaio --downloadonly --downloaddir=/home/tools/mysql/
+    # libaio-0.3.109-13.el7.x86_64.rpm
+    (3) rpm -ivh libaio-0.3.109-13.el7.x86_64.rpm
+    -------------------------
+   
+    (1) 配置环境（/etc/profile）export PATH=$PATH:/usr/local/mysql/bin
+     -------------------------
+     
+    tar -zxvf mysql-5.7.27-el7-x86_64.tar.gz
+    mv /usr/local/mysql-5.7.27-el7-x86_64/ /usr/local/mysql
+    cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql
+    
+    vim /etc/init.d/mysql添加如下：
+    basedir=/usr/local/mysql
+    datadir=/usr/local/mysql/data
+   
+     #创建存放socket文件的目录
+      mkdir -p /var/lib/mysql
+      chown mysql:mysql /var/lib/mysql
+     #添加服务mysql 
+      chkconfig --add mysql 
+     # 设置mysql服务为自动
+      chkconfig mysql on 
+     -------------------------
+    （1）安装： /usr/local/mysql/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+     -------------------------
+    #①建立一个mysql的组 
+     groupadd mysql
+    #②建立mysql用户，并且把用户放到mysql组 
+     useradd -r -g mysql mysql
+    #③还可以给mysql用户设置一个密码（mysql）。回车设置mysql用户的密码
+     passwd mysql 
+    #④修改/usr/local/mysql 所属的组和用户
+     chown -R mysql:mysql /usr/local/mysql/
+     -------------------------
+     /usr/local/mysql/bin/mysql_ssl_rsa_setup --datadir=/usr/local/mysql/data
+     
+     
+   
+   ```
+
+   
+
+```
+yum -y install mysql-server --downloadonly --downloaddir=/home/tools/mysql/
+```
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+
+JDK:
+
+![image-20211110134006585](python学习笔记（基础版）.assets/image-20211110134006585.png)
+
+
+
+## 备注
+
+yum install wget -y
+
+修改主机名：`hostnamectl set-hostname cdh01` , 然后`exit`重启登录
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# <font color=red>**34、流畅的python**</font>
 
 ## 第一章 python数据模型
 
@@ -9725,7 +10970,7 @@ print(set_a) # {'云', '轻', '风', '前', '重', '人', '负', '，', '行', '
 
 具体测试就不举例了，这是通过书中测试得到的结论。
 
-### 3 注意事项
+### 3. 注意事项
 
 由于字典使用了散列表，而散列表又必须是稀疏的，这导致它在空间上的效率低下。举例而言，如果你需要存放数量巨大的记录，那么放在由**元组或是具名元组构成的列表**中会是比较好的选择；最好不要根据 JSON 的风格，用由字典组成的列表来存放这些记录。用元组取代字典就能节省空间的原因有两个：其一是避免了散列表所耗费的空间，其二是无需把记录中字段的名字在每个元素里都存一遍。
 
@@ -10423,9 +11668,43 @@ var() # [2, 2, 3, 4, 5]
 var() # [3, 2, 3, 4, 5]
 ```
 
+**函数闭包**：一个函数，其参数和返回值都是函数。案例如下所示：
+
+```python
+def print_odds():
+    for i in iter(range(100)): # 迭代器
+        if i %2 ==1:
+            print(i)
+# 闭包本质上是一个函数
+# 闭包函数的传入参数和返回值也是函数
+# 闭包函数的返回值函数式对传入函数进行增强后的结果
+def count_time_wrapper(func):
+    """
+    :param func: 闭包，增强函数func:给函数func增加统计时间的功能
+    :return:
+    """
+    def improved_func():
+        start_time = time.clock()
+        func()  # 执行函数
+        end_time = time.clock()
+        print("it takes {} s to find all the olds".format(end_time - start_time))
+    return improved_func
+
+if __name__ == '__main__':
+    print_odds = count_time_wrapper(print_odds)
+    print_odds()
+```
+
 ### 2. 装饰器
 
  
+
+```python
+def count_time(func):
+    """
+    """
+    
+```
 
 
 
@@ -10630,25 +11909,185 @@ var() # [3, 2, 3, 4, 5]
   git add -A #加载状态内的全有文件到缓存区
   git commit -m "jjk commit" # 提交到本地仓库
   git push #上传到gitlab服务器
+  ----------------------------
+  git branch -r # 查看所有分支
+  git branch dev # 创建新的分支
+  git checkout 新分支名称 # 切换到新的分支
+  
   ```
-
+  
   
 
+# 35 anaconda
 
+```
+查看已有的虚拟环境，选择你要切换到的虚拟环境
+conda info --envs
+或者
+conda env list
 
+# 在命令行中切换到想要的虚拟环境，我这里切换到paddle
+conda activate paddle
+# 退出虚拟环境
+conda deactivate或者conda source deactivate 虚拟环境名称
 
+#创建一个名为python34的环境，指定Python版本为3.4
+conda create –name python34 python=3.4
 
+# 删除虚拟环境
+conda remove -n your_env_name --all
+```
 
+# 36 es
 
+## postman
 
+```
+GET : http://10.42.3.68:9200/_cat/indices?v #查看所有索引
+PUT : http://10.42.3.68:9200/jjk_test # 创建索引
+POST: http://10.42.3.68:9200/jjk_test/_doc # 添加数据-json
+DELETE : http://10.42.3.68:9200/jjk_test # 删除索引
+GET : http://10.42.3.68:9200/jjk_test/_doc/1001 # 数据查询-主键对应的数据
+GET : http://10.42.3.68:9200/jjk_test/_search #所有数据查询
+```
 
+## 分页查询
 
+```q
+{
+    "query":{
+        "match_all":{ //查询所有
 
+        }
+    },
+    "from" : 0, //从第0页开始；如果我想查询第二页：（页码-1）*每页数据条数 ；如果查询第二页，则from:2
+    "size" : 2, //每页显示两条
+    "_source":["name"],// 只想查看我想要的字段
+    "sort" : { // 对字段age进行排序
+        "age":{
+            "order":"desc" // asc
+        }
+    }
+}
+```
 
+## 条件查询
 
+单条件
 
+```q
+http://10.42.3.68:9200/jjk_test/_search?q=age:25
+```
 
+多条件：同时成立
 
+```q
+{
+    "query":{
+        "bool":{
+            "must" : [ // 多条件查询，且同时成立
+                {
+                    "match":{
+                        "category":"小米" // category:作为数据中的字段存在
+                    }
+                },
+                {
+                    "match":{
+                        "price":1999 // price:作为数据中的字段存在
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+多条件：成立其一
+
+```q
+// 多条件查询：成立其一
+{
+    "query":{
+        "bool":{
+            "should" : [ // 多条件查询，且同时成立
+                {
+                    "match":{
+                        "category":"小米" // category:作为数据中的字段存在
+                    }
+                },
+                {
+                    "match":{
+                        "category":"华为"
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
+## 范围查询
+
+```pascal
+// 多条件查询：成立其一（or）
+{
+    "query":{
+        "bool":{
+            "should" : [ // 多条件查询，且同时成立
+                {
+                    "match":{
+                        "category":"小米" // category:作为数据中的字段存在
+                    }
+                },
+                {
+                    "match":{
+                        "category":"华为"
+                    }
+                }
+            ],
+            "filter": { // 范围限制：价格超过5000的数据查出来
+                "range":{
+                    "price":{ // price:作为数据中存在的字段
+                        "gt": 5000
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## 全查询-精确查询-高亮显示
+
+```pascal
+{
+    "query":{
+        "match":{ // 完全匹配(精确匹配)：match_phrase
+            "country_zh":"国" // 全文检索：文字即使不正确，也能查询到数据，原因是：当保存文档型数据的时候，es会将数据文字进行分词，拆解操作并将拆解后的数据保存到倒排的索引当中，这样即使使用文字的一部分也能查询到数据
+        }
+    },
+    "highlight":{ // 高亮显示
+        "fields":{
+            "country_zh":{}
+        }
+    }
+}
+```
+
+## 聚合查询
+
+```pascal
+{
+    "aggs":{//聚合操作
+         "price_group":{ //名称，随意起
+             "terms":{ // 分组,如果是平均值：avg
+                 "field":"global_ranking" // 分组字段
+             }
+         }
+    },
+    "size":0
+}
+```
 
 
 

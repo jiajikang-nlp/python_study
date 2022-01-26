@@ -1,0 +1,465 @@
+GET as/_search
+
+
+GET ip/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "is_area_edge" : true
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET 3011_cybermapping_asset/_count
+{
+  "query": {
+    "match": {
+      "country_zh.keyword": "中国"
+    }
+  }
+}
+
+
+
+GET index-fdns-all/_search
+{"query": {"match": {"dns_register_domain": "inmarsat.com"}}, "size": 20}
+
+GET 3011_cybermapping_asset/_search?scroll=5m
+{
+  "size": 10000
+}
+
+GET _search/scroll
+{
+  "scroll":"5m",
+  "scroll_id": "DXF1ZXJ5QW5kRmV0Y2gBAAAAAABBtuUWYS1FTkw4Y2VRcWk2ZHlTdGZJbjRqQQ=="
+}
+
+
+GET index-rdns-all/_search
+{
+  "query":{
+     "match_all": {}
+   },
+  "size": 2,
+  "sort": [
+    {
+      "timestamp": "asc"
+      
+    }
+  ]
+}
+
+GET country_as_list_01/_search
+{
+  "query": {
+    {
+      "bool" : {
+        "must" : [
+          {
+            "term" : {
+              "country_zh.keyword" : {
+                "value" : "俄罗斯联邦",
+                "boost" : 1.0
+              }
+            }
+          },
+          {
+            "term" : {
+              "asn" : {
+                "value" : [
+                  3216,
+                  31200,
+                  9009,
+                  1299,
+                  12389,
+                  3257,
+                  9002,
+                  3356,
+                  20940,
+                  174
+                ],
+                "boost" : 1.0
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative" : true,
+        "boost" : 1.0
+      }
+    }
+  }
+}
+
+GET country_as_list_02_test/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+              "country_zh.keyword": {
+                  "value": "美国"
+              }
+            }
+          
+        },{
+          "terms": {
+            "asn": [
+                  33657
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_list_02/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+              "country_zh.keyword": {
+                  "value": "美国"
+              }
+            }
+          
+        },{
+          "terms": {
+            "asn": [
+                  3356
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_list_02_test/_search
+{
+  "query": {
+    "bool" : {
+      "must" : [
+        {
+          "term" : {
+            "country_zh.keyword" : {
+              "value" : "俄罗斯联邦",
+              "boost" : 1.0
+            }
+          }
+        },
+        {
+          "terms" : {
+            "asn" : [
+              33657
+            ],
+            "boost" : 1.0
+          }
+        }
+      ],
+      "adjust_pure_negative" : true,
+      "boost" : 1.0
+    }
+  }
+}
+
+GET country_as_list_01/_count
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "country_zh.keyword": {
+              "value": "俄罗斯联邦"
+            }
+          }
+        },
+        {
+          "term": {
+            "sark": {
+              "value": 1
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_list_01/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "country_zh.keyword": {
+              "value": "俄罗斯联邦"
+            }
+          }
+        },
+        {
+          "term": {
+            "asn": {
+              "value": 5531
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_list_02/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "country_zh.keyword": {
+              "value": "俄罗斯联邦"
+            }
+          }
+        },
+        {
+          "term": {
+            "asn": {
+              "value": 5531
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_list_03/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "country_zh.keyword": {
+              "value": "俄罗斯联邦"
+            }
+          }
+        },
+        {
+          "term": {
+            "asn": {
+              "value": 5531
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET global_core_as_gis/_count
+
+GET global_as_info/_search
+
+GET as_country_list/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match": {
+          "country_zh.keyword": "俄罗斯联邦"
+        }},
+        {
+          "match": {
+            "asn": 3356
+          }
+        }
+      ]
+    }
+  }
+}
+DELETE country_as_list
+
+GET country_as_list/_search
+{
+    "query": {
+        "exists" : { "field" : "as_adjoin_list" }
+    }
+}
+
+GET country_as_gis/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "country_zh.keyword": "俄罗斯联邦"
+        }
+      },{
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "source.asn": 3356
+                }
+              },
+              {
+                "match": {
+                  "target.asn": 3356
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_gis/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "source.asn": 3356
+                }
+              },{
+                "match": {
+                  "source.country_zh.keyword": "俄罗斯联邦"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "target.asn": 3356
+                }
+              },{
+                "match": {
+                  "target.country_zh.keyword": "俄罗斯联邦"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET country_as_gis/_coun
+{
+  "query": {
+    "match": {
+      "country_zh.keyword": "俄罗斯联邦"
+    }
+  }
+}
+
+
+GET prefix_gis/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        { "match": { "source.country_zh.keyword":  "日本" }},
+        { "match": { "target.country_zh.keyword": "日本"}}
+      ]
+    }
+  }
+}
+
+GET country_as_gis/_count
+
+GET country_as_gis/_count
+{
+  "query": {
+    "match": {
+      "country_zh.keyword": "俄罗斯联邦"
+    }
+  }
+}
+GET country_as_gis/_search
+GET ip/_search
+GET router/_search
+{
+  "query": {
+    "match": {
+      "country_zh.keyword": "中国"
+    }
+  }
+}
+
+GET global_as_gis/_count
+
+GET global_as_gis/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "source.asn": 21949
+          }
+        },
+        {
+          "term": {
+            "source.asn": 21949
+          }
+        }
+      ]
+    }
+  }
+}
+GET router/_search
+{
+  "query":{
+        "bool":{
+                "exists":{
+                    "field":"is_area_edge"
+                }
+        }
+  }
+}
+GET prefix_gis/_search
+
+GET index-rdns-all/_search
+{
+  "aggs": {
+    "num": {
+      "cardinality": {
+        "field": "ipv4_addr"
+      }
+    }
+  }
+}
+
+
+PUT country_as_gis/_settings
+{
+  "index":{
+    "max_result_window":2100000000
+  }
+}
